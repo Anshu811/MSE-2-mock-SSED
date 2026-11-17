@@ -17,3 +17,6 @@ The application code in `app/` is complete and works. Do not change it. Your job
 
 Gateway routes: `/` to frontend, `/api/` to api, `/storage/` to `minio:9000/campushub/`.
 Environment variable names are in `.env.example`. Copy it to `.env` and keep `.env` out of git.
+- Upload limits: the gateway allows request bodies up to 5 MB (client_max_body_size 5m),
+  so a 4 MB image plus multipart overhead reaches the API. The API itself rejects files
+  of 4 MiB (4194304 bytes) or more (multer limit), and nginx returns 413 above 5 MB.
